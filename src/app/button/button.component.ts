@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Button } from '../button.model';
+
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-button',
@@ -6,8 +10,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit {
+  @Input() button: Button;
+  constructor(private http: Http) { }
 
-  constructor() { }
+  buttonAction(url): void {
+    this.http.get(url).subscribe(data => {
+      console.log(data);
+    });
+  }
 
   ngOnInit() {
   }
