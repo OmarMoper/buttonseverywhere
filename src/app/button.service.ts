@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 
 import { Button } from './button.model';
+import { Http } from '@angular/http';
+
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ButtonService {
 
-  constructor() { }
+  constructor(private http: Http) { }
 
-  getButtons(): Button[] {
-    return [
-      {
-        url: 'http://192.168.1.200:8080/api/dispositivo/LED/on',
-        name: 'Encender LED'
-      },
-      {
-        url: 'http://192.168.1.200:8080/api/dispositivo/LED/off',
-        name: 'Apagar LED'
-      }
-    ];
+  public getUrl() {
+    return 'http://192.168.1.200:8080';
   }
+
+  buttonsStream() {
+    return this.http.get(this.getUrl() + '/dispositivo/?format=json').map((response) : Button[] => {
+        return response.json();
+    });
+  }
+
 }
