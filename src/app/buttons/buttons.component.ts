@@ -11,16 +11,19 @@ import { Button } from '../button.model';
   providers: [ButtonService]
 })
 export class ButtonsComponent implements OnInit {
-  buttons: Button[];
+  buttons;
 
   constructor(private buttonService: ButtonService) { }
 
   ngOnInit() {
-    this.getButtons();
+    this.initializeButtons();
   }
 
-  getButtons(): void {
-    this.buttons = this.buttonService.getButtons();
+  initializeButtons(): void {
+    this.buttonService.buttonsStream().subscribe((buttons) => {
+        this.buttons = buttons;
+        console.log(this.buttons);
+    });
   }
 
 }
