@@ -1,1 +1,5 @@
-<button md-raised-button class="mat-primary" (click)="buttonAction(button.url)">{{ button.name }}</button>
+<div>
+    <span class="button-name">Botón {{button.nombre}}</span>
+    <button md-raised-button class="mat-primary" (click)="buttonAction(button.url + '/on')">ENCENDER</button>
+    <button md-raised-button class="mat-primary" (click)="buttonAction(button.url + '/off')">APAGAR</button>
+</div>
